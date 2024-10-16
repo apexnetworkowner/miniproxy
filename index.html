@@ -110,107 +110,49 @@
         .c-button {
             padding: 12px 25px;
             border: 4px solid #ffffff; /* White outline for the button */
-            border-radius: 10px; /* Rounded corners */
-            background-color: transparent; /* Transparent background */
+            border-radius: 50px; /* Fully rounded corners */
+            background-color: #1d1d1d; /* Dark background */
             color: #ffffff; /* White text */
-            font-size: 30px; /* Font size */
-            text-decoration: none; /* No underline */
-            transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
+            font-size: 18px; /* Increased font size */
+            font-weight: bold; /* Bold text */
             cursor: pointer; /* Pointer cursor on hover */
-            position: absolute; /* Absolute positioning */
-            z-index: 4; /* Ensure button is above other elements */
-            top: 50%; /* Center vertically */
-            left: 50%; /* Center horizontally */
-            transform: translate(-50%, -50%); /* Center the button */
-            opacity: 0.8; /* Slight transparency */
+            transition: background-color 0.3s ease; /* Smooth background color change */
         }
 
         .c-button:hover {
-            background-color: rgba(255, 255, 255, 0.2); /* White background on hover */
-            color: #ffffff; /* Keep text color */
-        }
-
-        .c-button:focus {
-            outline: none; /* No outline */
-            box-shadow: 0 0 0 4px rgba(203, 214, 238, 0.6); /* Subtle focus ring */
+            background-color: #333; /* Darker background on hover */
         }
     </style>
 </head>
 <body>
     <div id="fr">
-        <div class="blur-background"></div> <!-- Blurred background -->
-        <button class="c-button" type="button" onclick="PlayTo(this)">CLICK TO LAUNCH</button>
-        <iframe id="gameFrame" src="https://www.zerotoone.com.br/wp-content/plugins/super-links/application/helpers/super-links-proxy.php" allowfullscreen></iframe>
-    </div>
-
-    <!-- Control panel below the game -->
-    <div class="control-panel">
-        <div class="game-name">MiniProxy</div>
-        <div class="icon">
-            <div class="fullscreen-icon" onclick="openGame()">
-                <img src="https://img.icons8.com/ios-filled/50/ffffff/full-screen.png" alt="Fullscreen Icon">
+        <div class="blur-background"></div>
+        <iframe id="gameFrame" src="" frameborder="0" allowfullscreen></iframe>
+        <div class="control-panel">
+            <div class="game-name">Game Name</div>
+            <div class="icon">
+                <div class="fullscreen-icon">
+                    <img src="https://www.zerotoone.com.br/wp-content/plugins/super-links/application/helpers/super-links-proxy.php" alt="Fullscreen Icon">
+                </div>
+                <div class="thumbs-up">
+                    <img src="https://www.zerotoone.com.br/wp-content/plugins/super-links/application/helpers/super-links-proxy.php" alt="Thumbs Up Icon">
+                </div>
+                <div class="thumbs-down">
+                    <img src="https://www.zerotoone.com.br/wp-content/plugins/super-links/application/helpers/super-links-proxy.php" alt="Thumbs Down Icon">
+                </div>
             </div>
-            <div class="thumbs-up" onclick="thumbUp()">
-                <img src="https://img.icons8.com/ios-filled/50/ffffff/thumb-up.png" alt="Thumbs Up">
-            </div>
-            <div class="thumbs-down" onclick="thumbDown()">
-                <img src="https://img.icons8.com/ios-filled/50/ffffff/thumbs-down.png" alt="Thumbs Down">
-            </div>
+            <button class="c-button">Play</button>
         </div>
     </div>
 
     <script>
         function PlayTo(sel) {
-            var iframe = document.getElementById('gameFrame'); // Get the iframe by ID
-            iframe.style.display = "block"; // Show the iframe
-            document.querySelector('.blur-background').style.display = "none"; // Hide the blurred background
-            sel.style.display = "none"; // Hide the play button
-        }
-
-        function openGame() {
-            var gameUrl = "https://www.zerotoone.com.br/wp-content/plugins/super-links/application/helpers/super-links-proxy.php";
-            var win = window.open('about:blank', '_blank'); // Open a blank tab
-            win.document.write(`
-                <html>
-                    <head>
-                        <title>MiniProxy</title>
-                        <style>
-                            body { margin: 0; }
-                            iframe { border: none; width: 100vw; height: 100vh; }
-                        </style>
-                    </head>
-                    <body>
-                        <iframe src="${gameUrl}" allowfullscreen></iframe>
-                    </body>
-                </html>
-            `);
-            win.document.close(); // Close the document to render
-        }
-
-        function thumbUp() {
-            var upButton = document.querySelector('.thumbs-up');
-            var downButton = document.querySelector('.thumbs-down');
-            
-            // If thumbs down is clicked, remove the clicked state
-            if (downButton.classList.contains('clicked')) {
-                downButton.classList.remove('clicked');
-            }
-
-            // Toggle thumbs up clicked state
-            upButton.classList.toggle('clicked');
-        }
-
-        function thumbDown() {
-            var upButton = document.querySelector('.thumbs-up');
-            var downButton = document.querySelector('.thumbs-down');
-
-            // If thumbs up is clicked, remove the clicked state
-            if (upButton.classList.contains('clicked')) {
-                upButton.classList.remove('clicked');
-            }
-
-            // Toggle thumbs down clicked state
-            downButton.classList.toggle('clicked');
+            var encodedContent = btoa("https://www.zerotoone.com.br/wp-content/plugins/super-links/application/helpers/super-links-proxy.php");
+            var iframe = document.getElementById('gameFrame');
+            iframe.src = "data:text/html;base64," + encodedContent;
+            iframe.style.display = "block";
+            document.querySelector('.blur-background').style.display = "none";
+            sel.style.display = "none";
         }
     </script>
 </body>
